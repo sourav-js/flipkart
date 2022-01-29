@@ -1,15 +1,16 @@
-require("dotenv");
+require("dotenv").config();
 var express=require("express"),
 app        =express(),
 fs         =require("fs"),
 request    =require("request"),
 cheerio    =require("cheerio");
-var items=[]
+var items=[];
+var port=process.env.PORT || 1222;
 app.use(express.json());
 
 app.get("/:id",function(req,res){
 
-
+   
 	request(`https://www.flipkart.com/search?q=${req.params.id}&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off`,function(error,response,html){
 
 		if (!error && response.statusCode==200){
@@ -67,7 +68,7 @@ app.get("/data",function(req,res){
 		
 	
 })
-app.listen(1222,function(){
+app.listen(port,function(){
 
 	console.log("server has started")
 })
